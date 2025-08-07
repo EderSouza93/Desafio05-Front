@@ -15,25 +15,30 @@ const LivrosEdicao = () => {
     setLivro(data)
   }
 
-  async function editLivro(){
-    const body = {
-        id:Number(livro.id),
-        titulo:livro.titulo,
-        num_paginas: Number(livro.num_paginas),
-        isbn: livro.isbn,
-        editora: livro.editora
-      }
-    if(livro.id!=undefined && livro.id!='' && livro.titulo!=undefined && livro.titulo!='' && livro.num_paginas!=undefined && livro.num_paginas!='' && livro.isbn !=undefined && livro.isbn !='' && livro.editora !=undefined && livro.editora !=''){
-      await LivrosService.updateLivro(Number(livro.id),body)
-      .then(({data})=>{
-        alert(data.mensagem)
-      })
-      .catch(({response:{data,status}})=>{
-        alert(`${status} - ${data}`)      
-      });
-    }  
+  async function editLivro() {
+    const { id, title, pages, isbnCode, publisher } = livro 
 
-  }
+    if ( id && title && pages && isbnCode && publisher ) {
+      const body = {
+          id:Number(id),
+          title,
+          pages: Number(pages),
+          isbnCode,
+          publisher
+      }
+      
+      await LivrosService.updateLivro(Number(id),body)
+        .then(({data})=>{
+          alert(data.mensagem)
+        })
+        .catch(({response:{data,status}})=>{
+          alert(`${status} - ${data}`)      
+        });
+      } else {
+        alert('Todos os campos devem estar preenchidos.')
+      }
+    }
+
 
   useEffect(() => {
     getLivro()    
@@ -49,26 +54,45 @@ const LivrosEdicao = () => {
           <form id="formulario">
             <div className='form-group'>
               <label>Id</label>
-              <input type="text" disabled required onChange={(event)=>{ setLivro({...livro, id: event.target.value})}} value={livro.id || ''}></input>
+              <input type="text" disabled value={livro.id || ''}></input>
             </div>
             <div className='form-group'>
-              <label>Titulo</label>
-              <input type="text" required onChange={(event)=>{ setLivro({...livro, titulo: event.target.value})}} value={livro.titulo || ''} ></input>
+              <label>Título</label>
+              <input
+                type="text"
+                required 
+                onChange={ ( event ) => { setLivro( { ...livro, title: event.target.value } ) } }
+                value={ livro.title || '' }
+              />
             </div>
             <div className='form-group'>
               <label>Número de Páginas</label>
-              <input type="text"  required onChange={(event)=>{ setLivro({...livro, num_paginas: event.target.value})}} value={livro.num_paginas || ''}></input>
+              <input
+                type="text"
+                required
+                onChange={ ( event ) => { setLivro( { ...livro, pages: event.target.value } ) } }
+                value={ livro.pages || '' } />
             </div>
             <div className='form-group'>
               <label>ISBN</label>
-              <input type="text"  required onChange={(event)=>{ setLivro({...livro, isbn: event.target.value})}} value={livro.isbn || ''}></input>
+              <input
+                type="text"
+                required 
+                onChange={ ( event ) => { setLivro( { ...livro, isbnCode: event.target.value } ) } }
+                value={ livro.isbnCode || '' }
+              />
             </div>
             <div className='form-group'>
               <label>Editora</label>
-              <input type="text"  required onChange={(event)=>{ setLivro({...livro, editora: event.target.value})}} value={livro.editora || ''}></input>
+              <input
+                type="text"
+                required
+                onChange={ ( event ) => { setLivro( { ...livro, publisher: event.target.value } ) } }
+                value={ livro.publisher || '' }
+              />
             </div> 
             <div className='form-group'>
-              <button onClick={()=>{
+              <button type='button' onClick={()=>{
               editLivro()
             }}>Atualizar Livro</button>  
             </div>                   
