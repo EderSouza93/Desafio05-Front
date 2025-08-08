@@ -5,6 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.scss';
+import { ToastProvider } from './components/Notifications/Notifications';
 import Home from './views/Home/Home';
 import Livros from './views/Livros/Livros';
 import LivrosCadastro from './views/LivrosCadastro/LivrosCadastro';
@@ -31,6 +32,16 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <ToastProvider
+      position='top-right'
+      autoClose={ 4000 }
+      theme='colored'
+      hideProgressBar={ false }
+      closeOnClick={ true }
+      pauseOnHover={ true }
+      draggable={ true }
+    >
     <RouterProvider router={router} />
+    </ToastProvider>
   </React.StrictMode>,
 )
