@@ -193,6 +193,7 @@ Para dúvidas ou problemas:
 
 ---
 
-**Versão**: 1.0.0  
-**Última Atualização**: Agosto 2025  
-**Status**: ✅ Ativo e em Desenvolvimento
+## Integração com Backend
+Segue o link do repositório do Backend
+[Backend](https://github.com/EderSouza93/RID183906_desafio05-backend)
+
