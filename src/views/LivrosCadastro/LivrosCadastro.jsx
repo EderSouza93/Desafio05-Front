@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import "./index.scss"
 import SubmenuLivros from '../../components/SubmenuLivros/SubmenuLivros'
@@ -9,6 +10,7 @@ const LivrosCadastro = () => {
   
   const [ livro, setLivro ] = useState( {} )
   const [ loading, setLoading ] = useState( false )
+  const navigate = useNavigate()
 
   async function createLivro() {
     if ( !livro.titulo || livro.title === '' || livro.titulo === undefined ) {
@@ -52,9 +54,8 @@ const LivrosCadastro = () => {
         onClose: () => {
           
           setTimeout( () => {
-            document.getElementById( 'formulario' ).reset()
-            setLivro({})
-          }, 100)
+            navigate('/livros')
+          }, 1000)
         }
       }) 
     } catch ( error ) {
